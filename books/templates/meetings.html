@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<br>
 
+
+<div id=meeting-div class = "meeting-table">
+<table class="table">
+<tr>
+<th>Date</th>
+<th>Host</th>
+<th>Location</th>
+</tr>
 {% for meeting in meeting_list %}
-<div id=meeting-div class = "meeting-entry">
-    <h2>Meeting date: {{ meeting.meeting_date}}</h2> 
-    <h2>Host: {{ meeting.host}}</h2> 
-    <p>Location: {{ meeting.location }}</p>
-</div>
+<tr>
+    <th>{{ meeting.meeting_date }}</th>
+    <th>{{ meeting.host }}</th>
+    <th>{{ meeting.location }}</th>
+</tr>
 {% endfor %}
+</table>
+
+</div>
 
 {% endblock content %}

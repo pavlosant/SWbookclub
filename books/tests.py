@@ -7,13 +7,25 @@ from django.urls import reverse
 
 class HomePageTest(TestCase):
 
-    def test_home_page_returns_its_html(self):
-        response = self.client.get("/")
-        self.assertTemplateUsed(response, "home.html")
-
-    def test_url_available_by_name(self):
+    def test_homepage(self):
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "home.html")
+
+
+class MeetingTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.pavlos = User.objects.create(first_name="Pavlos")
+        cls.meeting = Meeting.objects.create(
+            meeting_date="2024-04-10",
+            occured=False,
+            host=cls.pavlos,
+            location="Balsham",
+        )
+
+    def test_model_content(self):
+        self.assertEqual(self.meeting.location, "Balsham")
 
 
 class NewMeetingTest(TestCase):

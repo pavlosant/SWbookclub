@@ -11,10 +11,13 @@ class BookClub(models.Model):
 class Book(models.Model):
     title = models.TextField(max_length=200)
     author = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
-    description = models.TextField()
-    publication_date = models.DateField()
-    ISBN = models.CharField(max_length=100)
+    genre = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    publication_date = models.DateField(blank=True, null=True)
+    ISBN = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self) -> str:
+        return f"{self.title} by {self.author}"
 
 
 class Meeting(models.Model):
