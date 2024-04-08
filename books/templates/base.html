@@ -1,0 +1,23 @@
+<!-- templates/base.html -->
+{% load static %}
+<html>
+<head>
+    <title>Saffron Walden Book Club</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+    <h1> Saffron Walden Book Club</h1>
+    <div>
+    <header>
+<a href="{% url 'home'  %}">Home</a> | 
+<a href="{% url 'about' %}">About</a> |
+<a href="{% url 'meetings' %}">Meetings</a>
+
+    </header>
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

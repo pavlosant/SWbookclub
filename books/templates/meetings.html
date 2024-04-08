@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for meeting in meeting_list %}
+<div id=meeting-div class = "meeting-entry">
+    <h2>Meeting date: {{ meeting.meeting_date}}</h2> 
+    <h2>Host: {{ meeting.host}}</h2> 
+    <p>Location: {{ meeting.location }}</p>
+</div>
+{% endfor %}
+
+{% endblock content %}
