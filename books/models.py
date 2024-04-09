@@ -1,11 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
 
 class BookClub(models.Model):
-    pass
+    name = models.CharField(max_length=100, default="BookClub")
+    readers = models.ManyToManyField(User)
+
+    def __str__(self) -> str:
+        return f"{self.name.capitalize()}"
 
 
 class Book(models.Model):
@@ -27,8 +32,11 @@ class Meeting(models.Model):
     host = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        meeting_text = f"{self.meeting_date}:@ {self.host} - {self.location}"
+        meeting_text = f"{self.meeting_date} @ {self.host}"
         return meeting_text
+
+    def get_absolute_url(self):
+        return reverse("meeting_detail", kwargs={"pk": self.pk})
 
 
 class Book_List(models.Model):

@@ -3,23 +3,50 @@
 {% block content %}
 <br>
 
-
-<div id=meeting-div class = "meeting-table">
+<div>
+    <h2>Upcoming Meetings</h2>
+</div>
+<div id=meeting-div class = "container">
 <table class="table">
 <tr>
 <th>Date</th>
 <th>Host</th>
 <th>Location</th>
+<th>Details</th>
 </tr>
-{% for meeting in meeting_list %}
+{% for meeting in meeting_list.future_meetings %}
 <tr>
     <th>{{ meeting.meeting_date }}</th>
     <th>{{ meeting.host }}</th>
     <th>{{ meeting.location }}</th>
+    <th><a href="{{ meeting.get_absolute_url }}">Show More</a></th>
 </tr>
 {% endfor %}
 </table>
 
 </div>
+
+<div>
+    <h2>Past Meetings</h2>
+</div>
+<div id=meeting-div2 class = "container">
+    <table class="table">
+    <tr>
+    <th>Date</th>
+    <th>Host</th>
+    <th>Location</th>
+    <th>Details</th>
+    </tr>
+    {% for meeting in meeting_list.past_meetings %}
+    <tr>
+        <th>{{ meeting.meeting_date }}</th>
+        <th>{{ meeting.host }}</th>
+        <th>{{ meeting.location }}</th>
+        <th><a href="{% url 'meeting_detail' meeting.pk %}">Show More</a></th>
+    </tr>
+    {% endfor %}
+    </table>
+    
+    </div>
 
 {% endblock content %}
