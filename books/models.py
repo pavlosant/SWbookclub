@@ -14,7 +14,7 @@ class BookClub(models.Model):
 
 
 class Book(models.Model):
-    title = models.TextField(max_length=200)
+    title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     genre = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -23,6 +23,9 @@ class Book(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title} by {self.author}"
+
+    def get_absolute_url(self):
+        return reverse("book_detail", kwargs={"pk": self.pk})
 
 
 class Meeting(models.Model):

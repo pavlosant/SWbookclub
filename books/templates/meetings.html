@@ -2,29 +2,30 @@
 
 {% block content %}
 <br>
+<div >
 
+
+</div>
 <div>
     <h2>Upcoming Meetings</h2>
 </div>
-<div id=meeting-div class = "container">
-<table class="table">
-<tr>
-<th>Date</th>
-<th>Host</th>
-<th>Location</th>
-<th>Details</th>
-</tr>
-{% for meeting in meeting_list.future_meetings %}
-<tr>
-    <th>{{ meeting.meeting_date }}</th>
-    <th>{{ meeting.host }}</th>
-    <th>{{ meeting.location }}</th>
-    <th><a href="{{ meeting.get_absolute_url }}">Show More</a></th>
-</tr>
-{% endfor %}
-</table>
 
+<div id=meeting-div class = "container">
+    <div class="row">
+    {% for meeting in meeting_list.future_meetings %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{meeting.meeting_date}}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">Host:  {{meeting.host}}</h6>
+          <p class="card-text">Location: {{meeting.location}}</p>
+          <a href="{{ meeting.get_absolute_url }}"  class="btn btn-outline-primary">Show More</a>
+          <a href="{%url 'meeting_edit' meeting.pk %}"  class="btn btn-outline-primary"> Edit Meeting </a>
+         </div>
+      </div>
+      {% endfor %}
 </div>
+</div>
+
 
 <div>
     <h2>Past Meetings</h2>
@@ -42,7 +43,7 @@
         <th>{{ meeting.meeting_date }}</th>
         <th>{{ meeting.host }}</th>
         <th>{{ meeting.location }}</th>
-        <th><a href="{% url 'meeting_detail' meeting.pk %}">Show More</a></th>
+        <th><a href="{{ meeting.get_absolute_url }}">Show More</a></th>
     </tr>
     {% endfor %}
     </table>

@@ -3,13 +3,15 @@
 {% block content %}
 
 <div class="container">
-<h2>{{meeting}}</h2>
-<p>{{meeting.meeting_date}}</p>
-    <p>{{meeting.host}}</p>
-    <p>{{meeting.location}}</p>
+<br>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Meeting info</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{meeting.meeting_date}}</h6>
+          <p class="card-text">Host will be: {{meeting.host}} at {{meeting.location}}</p>
+          <a href="{%url 'meeting_edit' meeting.pk %}" class="btn btn-primary"> Edit Meeting </a>
+         </div>
+      </div>
 
-
-
-</div>
 
 {% endblock content %}
