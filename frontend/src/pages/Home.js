@@ -1,10 +1,12 @@
+import Container from 'react-bootstrap/Container';
 
 const Home = () => {
     return (
     <>
-    <div>
-    <h1>Home</h1>
-    </div>
+  
+        <Container>
+        <h1>Home</h1>
+        </Container>
     
     
     </>

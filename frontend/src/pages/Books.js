@@ -1,7 +1,11 @@
+import Container from 'react-bootstrap/Container';
 const Books = () => {
     return (
     <>
-    <h1>Books in List</h1>
+    <Container>
+    <h1>Books in BookClub List</h1>
+    </Container>
+  
     
     </>
 )}

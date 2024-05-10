@@ -1,13 +1,13 @@
 import Container from 'react-bootstrap/Container';
+const BookClub = () => {
 
-const NoPage = () => {
     return (
     <>
-    <Container> 
-    <h1>404</h1>
+    <Container>
+    <h1>BookClub details</h1>
     </Container>
-   
+  
     
     </>
 )}
-export default NoPage;
+export default BookClub;
