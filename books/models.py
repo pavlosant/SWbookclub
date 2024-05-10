@@ -41,6 +41,10 @@ class Meeting(models.Model):
     def get_absolute_url(self):
         return reverse("meeting_detail", kwargs={"pk": self.pk})
 
+    @property
+    def host_name(self):
+        return self.host.username
+
 
 class Book_List(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

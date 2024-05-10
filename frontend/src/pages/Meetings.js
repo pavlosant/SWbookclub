@@ -5,11 +5,11 @@ import Table from 'react-bootstrap/Table';
 
 
 function MeetingDisplay({meetings, title}){
- 
-
+    // sort meetings by most recent top 
+    const meetings_sorted=meetings.sort((a,b) => new Date(b.meeting_date) - new Date(a.meeting_date))
     return (
         <>
-        <h2>{title}</h2>
+        <h1 class="text-primary">{title}</h1>
         <Table striped> 
         <thead>
         <tr>
@@ -20,12 +20,12 @@ function MeetingDisplay({meetings, title}){
         
       </thead>
       <tbody>
-      { meetings.map( (meeting) => (
+      { meetings_sorted.map( (meeting) => (
             
             <tr>
                 <td key={meeting.id}>   {meeting.meeting_date} </td>
                 <td key={meeting.id}>   {meeting.location} </td>
-                <td key={meeting.id}>   {meeting.Host} </td>
+                <td key={meeting.id}>   {meeting.host_name} </td>
             </tr>
               
      )
@@ -71,17 +71,20 @@ function getMeetings(){
     
     const futuremeetings = meetings.filter((x) => x.meeting_date > today );
     const pastmeetings = meetings.filter((x) => x.meeting_date < today );
-    console.log(futuremeetings)
+    console.log(pastmeetings)
       }
 
     return (
   
     <>
     <Container>
-    <h1>Meetings</h1>
-   <MeetingDisplay meetings={meetings.filter((x) => x.meeting_date > new Date().toISOString().split('T')[0] )} title="Future meetings"  />
-   <MeetingDisplay meetings={meetings.filter((x) => x.meeting_date < new Date().toISOString().split('T')[0] )} title="Past meetings" />
+    
+    <Container>
+    <MeetingDisplay meetings={meetings.filter((x) => x.meeting_date > new Date().toISOString().split('T')[0] )} title="Future meetings"  />
+   <MeetingDisplay meetings={(meetings.filter((x) => x.meeting_date < new Date().toISOString().split('T')[0]))} title="Past meetings" />
 
+    </Container>
+ 
     </Container>
    
     

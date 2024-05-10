@@ -15,6 +15,8 @@ class BookClubSerializer(serializers.ModelSerializer):
 
 
 class MeetingSerializer(serializers.ModelSerializer):
+    host_name = serializers.ReadOnlyField()
+
     class Meta:
         model = Meeting
         fields = "__all__"
