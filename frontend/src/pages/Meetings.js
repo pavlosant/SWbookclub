@@ -16,6 +16,7 @@ function MeetingDisplay({meetings, title}){
           <th>Date</th>
           <th>Location</th>
           <th>Host</th>
+          <th>Book Discussed</th>
         </tr>
         
       </thead>
@@ -26,6 +27,7 @@ function MeetingDisplay({meetings, title}){
                 <td key={meeting.id}>   {meeting.meeting_date} </td>
                 <td key={meeting.id}>   {meeting.location} </td>
                 <td key={meeting.id}>   {meeting.host_name} </td>
+                <td key={meeting.id}>   {meeting.book_name} </td>
             </tr>
               
      )
@@ -69,9 +71,7 @@ function getMeetings(){
     )
     console.log("Today "+today)
     
-    const futuremeetings = meetings.filter((x) => x.meeting_date > today );
-    const pastmeetings = meetings.filter((x) => x.meeting_date < today );
-    console.log(pastmeetings)
+
       }
 
     return (

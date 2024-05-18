@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from books.models import Meeting, Book, BookClub
+from books.models import Meeting, Book, BookClub, Book_List
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -12,7 +12,14 @@ from django.views.generic import (
     UpdateView,
 )
 from rest_framework import viewsets
-from .serializers import BookSerializer, BookClubSerializer, MeetingSerializer
+from rest_framework.response import Response
+
+from .serializers import (
+    BookSerializer,
+    BookClubSerializer,
+    MeetingSerializer,
+    BookListSerializer,
+)
 import requests
 from datetime import datetime
 from .forms import MeetingForm, BookForm, BookSearchForm
@@ -167,3 +174,13 @@ class BookClubView(viewsets.ModelViewSet):
 class MeetingView(viewsets.ModelViewSet):
     serializer_class = MeetingSerializer
     queryset = Meeting.objects.all()
+
+
+class BookListView(viewsets.ModelViewSet):
+    serializer_class = BookListSerializer
+    queryset = Book_List.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
