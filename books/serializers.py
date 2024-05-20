@@ -27,11 +27,13 @@ class BookListSerializer(serializers.ModelSerializer):
 
     owner_name = serializers.ReadOnlyField()
     bookclub_name = serializers.ReadOnlyField()
-    book_names = serializers.ReadOnlyField()
+    books = BookSerializer(read_only=True, many=True)
 
-    def create(self, validated_data):
-        books = [Book(**item) for item in validated_data]
-        return Book.objects.bulk_create(books)
+    # def create(self, validated_data):
+    #     """
+    #     Create and return a new Bool_List instance, given the validated data.
+    #     """
+    #     return Book_List.objects.create(**validated_data)
 
     class Meta:
         model = Book_List

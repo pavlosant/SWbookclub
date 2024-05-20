@@ -1,6 +1,6 @@
 from typing import Any
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from books.models import Meeting, Book, BookClub, Book_List
@@ -13,6 +13,7 @@ from django.views.generic import (
 )
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .serializers import (
     BookSerializer,
@@ -178,9 +179,22 @@ class MeetingView(viewsets.ModelViewSet):
 
 class BookListView(viewsets.ModelViewSet):
     serializer_class = BookListSerializer
-    queryset = Book_List.objects.all()
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
+    def get_queryset(request, format=None):
+        queryset = Book_List.objects.all()
+
+        return queryset
+
+
+class BookListDetailView(viewsets.ModelViewSet):
+
+    def get_object(self, pk):
+        try:
+            return Book_List.objects.get(pk=pk)
+        except Book_List.DoesNotExist:
+            raise Http404
+
+    def get_queryset(request, pk, format=None):
+        queryset = Book_List.get_object(pk)
+        serializer = BookListSerializer(queryset)
         return Response(serializer.data)
