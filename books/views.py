@@ -1,9 +1,9 @@
 from typing import Any
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from books.models import Meeting, Book
+from books.models import Meeting, Book, BookClub, Book_List
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -12,7 +12,15 @@ from django.views.generic import (
     UpdateView,
 )
 from rest_framework import viewsets
-from .serializers import BookSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .serializers import (
+    BookSerializer,
+    BookClubSerializer,
+    MeetingSerializer,
+    BookListSerializer,
+)
 import requests
 from datetime import datetime
 from .forms import MeetingForm, BookForm, BookSearchForm
@@ -157,3 +165,36 @@ def book_save(request):
 class BookView(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+
+
+class BookClubView(viewsets.ModelViewSet):
+    serializer_class = BookClubSerializer
+    queryset = BookClub.objects.all()
+
+
+class MeetingView(viewsets.ModelViewSet):
+    serializer_class = MeetingSerializer
+    queryset = Meeting.objects.all()
+
+
+class BookListView(viewsets.ModelViewSet):
+    serializer_class = BookListSerializer
+
+    def get_queryset(request, format=None):
+        queryset = Book_List.objects.all()
+
+        return queryset
+
+
+class BookListDetailView(viewsets.ModelViewSet):
+
+    def get_object(self, pk):
+        try:
+            return Book_List.objects.get(pk=pk)
+        except Book_List.DoesNotExist:
+            raise Http404
+
+    def get_queryset(request, pk, format=None):
+        queryset = Book_List.get_object(pk)
+        serializer = BookListSerializer(queryset)
+        return Response(serializer.data)

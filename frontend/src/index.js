@@ -10,7 +10,7 @@ import Books from "./pages/Books";
 import Meetings from "./pages/Meetings";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
-
+import BookClub from "./pages/BookClub";
 
 export default function App(){
   return (
@@ -20,6 +20,7 @@ export default function App(){
         <Route index element={<Home />} />
         <Route path="books" element={<Books />} />
         <Route path="meetings" element={<Meetings />} />
+        <Route path="bookclub" element={<BookClub />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NoPage />} />
         </Route> 
