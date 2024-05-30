@@ -20,6 +20,7 @@ class Book(models.Model):
     description = models.TextField(blank=True, null=True)
     publication_date = models.DateField(blank=True, null=True)
     ISBN = models.CharField(max_length=100, blank=True, null=True)
+    cover = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.title} by {self.author}"
