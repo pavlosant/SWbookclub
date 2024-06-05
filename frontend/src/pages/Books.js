@@ -23,7 +23,7 @@ const Books = () => {
         const fetchData = async () =>{
           
           try {
-            const {data: response} = await axios.get(baseURL+"/books");
+            const {data: response} = await axios.get(baseURL+"/books/");
             setBooks(response);
           } catch (error) {
             console.error(error.message);
@@ -58,7 +58,7 @@ const Books = () => {
        <Container>
        <Row xs={2} md={3} className="g-4">
          { books.map( (book) => (  
-      <Cardcomp book={book} />
+      <Cardcomp key={book.id} book={book} />
     
     ))}
       </Row>

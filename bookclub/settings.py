@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "bootstrap4",
     "corsheaders",
     "rest_framework",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
 CORS_ALLOWED_ORIGINS = ("http://localhost:3000", "http://localhost:8000")
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
+}

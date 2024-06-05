@@ -28,8 +28,6 @@ router = routers.DefaultRouter()
 router.register(r"books", views.BookView, "book")
 router.register(r"bookclub", views.BookClubView, "bookclub")
 router.register(r"meetings", views.MeetingView, "meeting")
-router.register(r"booklist", views.BookListView, "booklist")
-router.register(r"booklist/<int:pk>", views.BookListDetailView, "booklist_detail")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

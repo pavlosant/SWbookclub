@@ -27,7 +27,10 @@ function MeetingDisplay({meetings, title}){
                 <td key={meeting.id}>   {meeting.meeting_date} </td>
                 <td key={meeting.id}>   {meeting.location} </td>
                 <td key={meeting.id}>   {meeting.host_name} </td>
-                <td key={meeting.id}>   {meeting.book_name} </td>
+                { meeting.all_books.map((book)=> (
+                    <td key={book.id}>   {book.fields.title} by {book.fields.author} </td>
+                ))}
+                
             </tr>
               
      )

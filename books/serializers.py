@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, BookClub, Meeting, Book_List
+from .models import Book, BookClub, Meeting
 
 
 class BookClubSerializer(serializers.ModelSerializer):
@@ -10,31 +10,16 @@ class BookClubSerializer(serializers.ModelSerializer):
 
 class MeetingSerializer(serializers.ModelSerializer):
     host_name = serializers.ReadOnlyField()
-    book_name = serializers.ReadOnlyField()
 
     class Meta:
         model = Meeting
-        fields = "__all__"
+        fields = [field.name for field in model._meta.fields]
+        fields.append("all_books")
+        fields.append("host_name")
 
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = "__all__"
-
-
-class BookListSerializer(serializers.ModelSerializer):
-
-    owner_name = serializers.ReadOnlyField()
-    bookclub_name = serializers.ReadOnlyField()
-    books = BookSerializer(read_only=True, many=True)
-
-    # def create(self, validated_data):
-    #     """
-    #     Create and return a new Bool_List instance, given the validated data.
-    #     """
-    #     return Book_List.objects.create(**validated_data)
-
-    class Meta:
-        model = Book_List
-        fields = "__all__"
+        fields = [field.name for field in model._meta.fields]
+        fields.append("meeting_detail")

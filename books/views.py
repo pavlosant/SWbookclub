@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse, Http404
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from books.models import Meeting, Book, BookClub, Book_List
+from books.models import Meeting, Book, BookClub
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -14,12 +14,12 @@ from django.views.generic import (
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import (
     BookSerializer,
     BookClubSerializer,
     MeetingSerializer,
-    BookListSerializer,
 )
 import requests
 from datetime import datetime
@@ -163,8 +163,15 @@ def book_save(request):
 
 
 class BookView(viewsets.ModelViewSet):
+
     serializer_class = BookSerializer
-    queryset = Book.objects.all()
+
+    def get_queryset(self):
+        queryset = Book.objects.all()
+        book_club = self.request.query_params.get("club")
+        if book_club is not None:
+            queryset = queryset.filter(bookclub__name__icontains=book_club)
+        return queryset
 
 
 class BookClubView(viewsets.ModelViewSet):
@@ -175,26 +182,3 @@ class BookClubView(viewsets.ModelViewSet):
 class MeetingView(viewsets.ModelViewSet):
     serializer_class = MeetingSerializer
     queryset = Meeting.objects.all()
-
-
-class BookListView(viewsets.ModelViewSet):
-    serializer_class = BookListSerializer
-
-    def get_queryset(request, format=None):
-        queryset = Book_List.objects.all()
-
-        return queryset
-
-
-class BookListDetailView(viewsets.ModelViewSet):
-
-    def get_object(self, pk):
-        try:
-            return Book_List.objects.get(pk=pk)
-        except Book_List.DoesNotExist:
-            raise Http404
-
-    def get_queryset(request, pk, format=None):
-        queryset = Book_List.get_object(pk)
-        serializer = BookListSerializer(queryset)
-        return Response(serializer.data)
