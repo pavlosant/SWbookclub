@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Book, BookClub, Meeting
+from django.contrib.auth.models import User
 
 
 class BookClubSerializer(serializers.ModelSerializer):
@@ -23,3 +24,9 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = [field.name for field in model._meta.fields]
         fields.append("meeting_detail")
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"

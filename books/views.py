@@ -4,6 +4,8 @@ from django.http import HttpResponse, Http404
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from books.models import Meeting, Book, BookClub
+from django.contrib.auth.models import User
+
 from django.views.generic import (
     TemplateView,
     ListView,
@@ -20,6 +22,7 @@ from .serializers import (
     BookSerializer,
     BookClubSerializer,
     MeetingSerializer,
+    UserSerializer,
 )
 import requests
 from datetime import datetime
@@ -182,3 +185,8 @@ class BookClubView(viewsets.ModelViewSet):
 class MeetingView(viewsets.ModelViewSet):
     serializer_class = MeetingSerializer
     queryset = Meeting.objects.all()
+
+
+class UsersView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

@@ -70,8 +70,8 @@ function BookAPI  ({books}) {
              title: book.volumeInfo.title,
              author: book.volumeInfo.authors[0],
              description:book.volumeInfo.description,
-             cover:book.volumeInfo.imageLinks.thumbnail
-            
+             cover:book.volumeInfo.imageLinks.thumbnail,
+             bookclub: "Saffron Walden Book Club",
             },  headers: {
              "Authorization": "AUTHORIZATION_KEY",
              "Content-type": "application/json"

@@ -22,13 +22,12 @@ from django.conf.urls import include
 from books import views
 from books import urls as book_urls
 from rest_framework import routers
-from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r"books", views.BookView, "book")
 router.register(r"bookclub", views.BookClubView, "bookclub")
 router.register(r"meetings", views.MeetingView, "meeting")
-
+router.register(r"users", views.UsersView, "users")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("books.urls")),

@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
-
+import AddMeeting from './AddMeeting';
+import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom';
 
 function MeetingDisplay({meetings, title}){
     // sort meetings by most recent top 
@@ -44,14 +46,17 @@ function MeetingDisplay({meetings, title}){
 }
 
 const Meetings = () => {
-    
+    const navigate = useNavigate();
     let baseURL= "http://localhost:8000/api"   
     const [meetings, setMeetings] = useState([]);
     useEffect(()=> {
         getMeetings()
     },[])
  
+function handleClick(){
+        navigate("/meetings/add")
 
+    }
 
 function getMeetings(){
     const today = new Date().toISOString().split('T')[0];
@@ -74,6 +79,7 @@ function getMeetings(){
     )
     console.log("Today "+today)
     
+    
 
       }
 
@@ -81,7 +87,15 @@ function getMeetings(){
   
     <>
     <Container>
-    
+        <Container>
+    <Button
+         variant="primary"
+         onClick={handleClick}
+       >
+         Plan a new book club meeting 
+       </Button>
+       </Container>
+
     <Container>
     <MeetingDisplay meetings={meetings.filter((x) => x.meeting_date > new Date().toISOString().split('T')[0] )} title="Future meetings"  />
    <MeetingDisplay meetings={(meetings.filter((x) => x.meeting_date < new Date().toISOString().split('T')[0]))} title="Past meetings" />

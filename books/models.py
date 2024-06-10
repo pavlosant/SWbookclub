@@ -18,7 +18,6 @@ class Meeting(models.Model):
     meeting_date = models.DateField()
     location = models.TextField()
     host = models.ForeignKey(User, on_delete=models.CASCADE)
-    book_club = models.ForeignKey(BookClub, on_delete=models.CASCADE)
     book_chooser = models.ForeignKey(
         User, related_name="choser", on_delete=models.CASCADE, blank=True, null=True
     )
