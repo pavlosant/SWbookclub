@@ -2,12 +2,12 @@ import AddBook from "./AddBook";
 import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button'
-import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Accordion from 'react-bootstrap/Accordion';
+import { Link } from "react-router-dom";
 import styles from "../App.css";
 const api = axios.create({
     baseURL: "http://localhost:8080"
@@ -23,7 +23,7 @@ const Books = () => {
         const fetchData = async () =>{
           
           try {
-            const {data: response} = await axios.get(baseURL+"/books");
+            const {data: response} = await axios.get(baseURL+"/books/");
             setBooks(response);
           } catch (error) {
             console.error(error.message);
@@ -58,7 +58,7 @@ const Books = () => {
        <Container>
        <Row xs={2} md={3} className="g-4">
          { books.map( (book) => (  
-      <Cardcomp book={book} />
+      <Cardcomp key={book.id} book={book} />
     
     ))}
       </Row>
@@ -70,6 +70,7 @@ const Books = () => {
 )}
 
 const Cardcomp = ({book}) => {
+  let meeting="sdad"
     const styles = {
         card: {
           backgroundColor: '#B7E0F2',
@@ -82,9 +83,18 @@ const Cardcomp = ({book}) => {
         }
      
       }
+      if (book.meeting_detail != "None"){
+       meeting="Discussed at meeting: "+ book.meeting_detail
+       }
+        else {
+       meeting="Not discussed yet"
+        }
+      
 
  return (
-    
+  
+
+  
         <Col key={book.id}>
 <Card  border="light" style={{width:'18rem'}} key={book.id}>
      <Card.Img variant="top" src= {book.cover} optional="true" style={styles.cardImage} />
@@ -99,7 +109,7 @@ const Cardcomp = ({book}) => {
        </Card.Text>
         </Accordion.Body>
        </Accordion>
-     
+       <Card.Subtitle> <Link to={`/meetings/${book.meeting}`}>{meeting}</Link></Card.Subtitle>
      </Card.Body>
      </Card>
      </Col>

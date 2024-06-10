@@ -16,7 +16,6 @@ function Search(){
     const [searchTerm, setSearchTerm] = useState('');
     const [showAPI, setshowAPI] = useState(false);
     const [books, setBooks] = useState([]);
-
     
 
     const handleChange = (event) => {
@@ -63,16 +62,25 @@ function BookAPI  ({books}) {
          axios({
            method: "POST",
            url:"http://localhost:8000/api/books/",
+           redirect:"follow",
+           params:{
+            id:book.id
+           },
            data:{
              title: book.volumeInfo.title,
              author: book.volumeInfo.authors[0],
              description:book.volumeInfo.description,
-             cover:book.volumeInfo.imageLinks.thumbnail
+             cover:book.volumeInfo.imageLinks.thumbnail,
+             bookclub: "Saffron Walden Book Club",
             },  headers: {
              "Authorization": "AUTHORIZATION_KEY",
              "Content-type": "application/json"
            }
-           })}
+           })
+          
+          const all_books = axios.get("http://localhost:8000/api/books/")
+          window.location.href="./books"
+        }
     
     return (
         <>

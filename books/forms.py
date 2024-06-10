@@ -11,7 +11,7 @@ class DateInput(forms.DateInput):
 class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting
-        fields = ["meeting_date", "host", "location", "occured"]
+        fields = "__all__"
         widgets = {"meeting_date": widgets.DateInput(attrs={"type": "date"})}
 
 
