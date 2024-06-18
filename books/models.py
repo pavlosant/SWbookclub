@@ -8,18 +8,22 @@ from django.core import serializers
 
 class BookClub(models.Model):
     name = models.CharField(max_length=100, default="BookClub")
-    readers = models.ManyToManyField(User)
+    readers = models.ManyToManyField(User, related_name="bookclubreaders")
 
     def __str__(self) -> str:
         return f"{self.name.capitalize()}"
 
 
 class Meeting(models.Model):
-    meeting_date = models.DateField()
+    meeting_date = models.DateTimeField()
     location = models.TextField()
-    host = models.ForeignKey(User, on_delete=models.CASCADE)
-    book_chooser = models.ForeignKey(
-        User, related_name="choser", on_delete=models.CASCADE, blank=True, null=True
+    host = models.ForeignKey(User, related_name="host", on_delete=models.CASCADE)
+    chooser = models.ForeignKey(
+        User,
+        related_name="chooser",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     def __str__(self) -> str:
@@ -58,7 +62,7 @@ class Book(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name="bookmeeting",
+        related_name="meeting",
     )
 
     @property
