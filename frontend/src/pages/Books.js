@@ -83,12 +83,7 @@ const Cardcomp = ({book}) => {
         }
      
       }
-      if (book.meeting_detail != "None"){
-       meeting="Discussed at meeting: "+ book.meeting_detail
-       }
-        else {
-       meeting="Not discussed yet"
-        }
+      
       
 
  return (
@@ -109,7 +104,7 @@ const Cardcomp = ({book}) => {
        </Card.Text>
         </Accordion.Body>
        </Accordion>
-       <Card.Subtitle> <Link to={`/meetings/${book.meeting}`}>{meeting}</Link></Card.Subtitle>
+       <Card.Subtitle> {book.book_discussed}</Card.Subtitle>
      </Card.Body>
      </Card>
      </Col>

@@ -17,8 +17,24 @@ class BookList(generics.ListCreateAPIView):
 ##    def get(self, request):
 #        data = BookSerializer(books, many=True).data
 #        return Response(data)
-
-
 class BookDetail(generics.RetrieveDestroyAPIView):
     queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+class MeetingList(generics.ListCreateAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+
+
+class MeetingDetail(generics.RetrieveDestroyAPIView):
+    queryset = Meeting.objects.all()
+    serializer_class = MeetingSerializer
+
+
+class MeetingBookList(generics.ListCreateAPIView):
+    def get_queryset(self):
+        queryset = Book.objects.filter(bookmeeting=self.kwargs["pk"])
+        return queryset
+
     serializer_class = BookSerializer

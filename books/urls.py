@@ -10,19 +10,16 @@ from .views import (
     MeetingUpdateView,
     BookCreateView,
     book_search,
-    meetings_detail,
-    meetings_list,
-    books_list,
-    books_detail,
     bookclub_list,
     bookclub_detail,
 )
 
-from .apiviews import BookList, BookDetail
+from .apiviews import BookList, BookDetail, MeetingList, MeetingDetail, MeetingBookList
 
 urlpatterns = [
-    path("meetings/", meetings_list, name="meetings_list"),
-    path("meetings/<int:pk>/", meetings_detail, name="meetings_detail"),
+    path("meetings/", MeetingList.as_view(), name="meetings_list"),
+    path("meetings/<int:pk>/", MeetingDetail.as_view(), name="meetings_detail"),
+    path("meetings/<int:pk>/book/", MeetingBookList.as_view(), name="meetings_book"),
     path("books/", BookList.as_view(), name="books_list"),
     path("books/<int:pk>/", BookDetail.as_view(), name="books_detail"),
     # path("books/", books_list, name="books_list"),

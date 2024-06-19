@@ -14,35 +14,6 @@ class BookClub(models.Model):
         return f"{self.name.capitalize()}"
 
 
-class Meeting(models.Model):
-    meeting_date = models.DateTimeField()
-    location = models.TextField()
-    host = models.ForeignKey(User, related_name="host", on_delete=models.CASCADE)
-    chooser = models.ForeignKey(
-        User,
-        related_name="chooser",
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-
-    def __str__(self) -> str:
-        meeting_text = f"{self.meeting_date} @ {self.host}"
-        return meeting_text
-
-    def get_absolute_url(self):
-        return reverse("meeting_detail", kwargs={"pk": self.pk})
-
-    @property
-    def host_name(self):
-        return self.host.username
-
-    @property
-    def all_books(self):
-
-        return serializers.serialize("python", self.bookmeeting.all())
-
-
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
@@ -57,17 +28,14 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     bookclub = models.ManyToManyField(BookClub)
-    meeting = models.ForeignKey(
-        Meeting,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name="meeting",
-    )
+    discussed = models.BooleanField(default=False)
 
     @property
-    def meeting_detail(self):
-        return f"{self.meeting}"
+    def book_discussed(self):
+        if self.discussed is True:
+            return f"Book already discussed"
+        else:
+            return f"Not yet discussed"
 
     class Meta:
         ordering = ["-updated_at", "-created_at"]
@@ -77,3 +45,38 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse("book_detail", kwargs={"pk": self.pk})
+
+
+class Meeting(models.Model):
+    meeting_date = models.DateField()
+    location = models.TextField()
+    host = models.ForeignKey(User, related_name="host", on_delete=models.CASCADE)
+    chooser = models.ForeignKey(
+        User,
+        related_name="chooser",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    book_discussed = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="bookmeeting",
+    )
+
+    def __str__(self) -> str:
+        meeting_text = f"{self.meeting_date} @ {self.host}"
+        return meeting_text
+
+    def get_absolute_url(self):
+        return reverse("meeting_detail", kwargs={"pk": self.pk})
+
+    @property
+    def host_name(self):
+        return self.host.username
+
+    @property
+    def book_name(self):
+        return f"{self.book_discussed.title} by {self.book_discussed.author}"

@@ -9,7 +9,7 @@ function AddMeeting(){
     console.log(today)
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
-    const baseURL= "http://localhost:8000/api"
+    const baseURL= "http://localhost:8000"
     useEffect(() => {
         const fetchData = async () =>{
           
@@ -51,7 +51,7 @@ function AddMeeting(){
     e.preventDefault();
     axios({
         method: "POST",
-        url:"http://localhost:8000/api/meetings/",
+        url:"http://localhost:8000/meetings/",
         redirect:"follow",
         params:{
          
