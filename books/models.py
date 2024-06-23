@@ -58,12 +58,12 @@ class Meeting(models.Model):
         blank=True,
         null=True,
     )
-    book_discussed = models.ForeignKey(
+    book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name="bookmeeting",
+        related_name="book",
     )
 
     def __str__(self) -> str:

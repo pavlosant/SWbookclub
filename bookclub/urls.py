@@ -24,12 +24,8 @@ from books import urls as book_urls
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r"books", views.BookView, "book")
-router.register(r"bookclub", views.BookClubView, "bookclub")
-router.register(r"meetings", views.MeetingView, "meeting")
-router.register(r"users", views.UsersView, "users")
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("books.urls")),
-    path("api/", include(router.urls)),
 ]

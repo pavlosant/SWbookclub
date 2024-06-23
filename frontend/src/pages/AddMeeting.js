@@ -6,7 +6,7 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 function AddMeeting(){
     const today = new Date().toISOString().split('T')[0];
-    console.log(today)
+    
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
     const baseURL= "http://localhost:8000"
@@ -34,11 +34,11 @@ function AddMeeting(){
 
 
     const [formData, setFormData] = useState({
-        meeting_date: {today},
+        meeting_date: '',
         location: '',
         book:'',
         host: '',
-        book_chooser:'',
+        chooser:'',
       });
 
       
@@ -49,6 +49,7 @@ function AddMeeting(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     axios({
         method: "POST",
         url:"http://localhost:8000/meetings/",
@@ -57,11 +58,11 @@ function AddMeeting(){
          
         },
         data:{
-          meeting_date: formData.meeting_date,
+          meeting_date: "26-09-2024",
           location: formData.location,
-          host:formData.host,
-          book:formData.book,
-          book_choser: formData.book_chooser.id,
+          host_name:formData.host,
+          book_discussed:formData.book.title,
+          chooser: formData.chooser,
          },  headers: {
           "Authorization": "AUTHORIZATION_KEY",
           "Content-type": "application/json"
@@ -75,6 +76,7 @@ function AddMeeting(){
    // book_chooser = models.ForeignKey(
 // all_books
     // host_name
+    
     return (
         <>
         <Container>
@@ -105,7 +107,7 @@ function AddMeeting(){
 
       <Form.Group className="mb-3" controlId="formHost">
         <Form.Label>Host: </Form.Label>
-        <Form.Select value={formData.key} name="host" aria-label="Default select example" onChange={handleChange}>
+        <Form.Select value={formData.user} name="host" aria-label="Default select example" onChange={handleChange}>
         <option>Not yet decided</option>
         { users.map( (user) => (  
       <option key={user.id} >{user.username}</option>
@@ -115,7 +117,7 @@ function AddMeeting(){
 
       <Form.Group className="mb-3" controlId="formBookChooser">
         <Form.Label>Book Chooser: </Form.Label>
-        <Form.Select value={formData.key} name="book_chooser" aria-label="Default select example" onChange={handleChange}  >
+        <Form.Select value={formData.user} name="chooser" aria-label="Default select example" onChange={handleChange}  >
         <option>Not yet decided</option>
         { users.map( (user) => (  
       <option key={user.id} >{user.username}</option>

@@ -3,8 +3,13 @@ from rest_framework import generics
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
-from .models import Book, Meeting, BookClub
-from .serializers import BookSerializer, BookClubSerializer, MeetingSerializer
+from .models import Book, Meeting, BookClub, User
+from .serializers import (
+    BookSerializer,
+    BookClubSerializer,
+    MeetingSerializer,
+    UserSerializer,
+)
 
 
 class BookList(generics.ListCreateAPIView):
@@ -38,3 +43,13 @@ class MeetingBookList(generics.ListCreateAPIView):
         return queryset
 
     serializer_class = BookSerializer
+
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
