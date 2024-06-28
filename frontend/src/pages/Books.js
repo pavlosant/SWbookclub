@@ -17,7 +17,7 @@ const api = axios.create({
 const Books = () => {
     const [showForm, setshowForm] = useState(false);
     const [books, setBooks] = useState([])
-    const baseURL= "http://localhost:8000/api"
+    const baseURL= "http://localhost:8000"
     
     useEffect(() => {
         const fetchData = async () =>{

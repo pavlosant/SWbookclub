@@ -10,15 +10,11 @@ class BookClubSerializer(serializers.ModelSerializer):
 
 
 class MeetingSerializer(serializers.ModelSerializer):
-    book = serializers.StringRelatedField()
-    host = serializers.StringRelatedField()
-    chooser = serializers.StringRelatedField()
+    meeting_date = serializers.DateField()
 
     class Meta:
         model = Meeting
-        fields = [field.name for field in model._meta.fields]
-        fields.append("book")
-        fields.append("host")
+        fields = "__all__"
 
 
 class BookSerializer(serializers.ModelSerializer):
