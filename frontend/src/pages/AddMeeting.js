@@ -4,7 +4,9 @@ import Button from 'react-bootstrap/Button'
 import { useState, useEffect } from 'react';
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 function AddMeeting(){
+    const navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
     
     const [books, setBooks] = useState([])
@@ -73,14 +75,11 @@ function AddMeeting(){
           "Content-type": "application/json"
         }
         })
-    // Here, we'll add the code to post the form data using Axios
+    
+        navigate("/meetings")
   };
-    //    meeting_date
-   // location 
-   // host = models.ForeignKey(User, on_delete=models.CASCADE)
-   // book_chooser = models.ForeignKey(
-// all_books
-    // host_name
+   
+         
     
     return (
         <>

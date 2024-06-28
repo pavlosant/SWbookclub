@@ -80,5 +80,9 @@ class Meeting(models.Model):
         return self.host.username
 
     @property
+    def chooser_name(self):
+        return self.chooser.username
+
+    @property
     def book_name(self):
-        return f"{self.book_discussed.title} by {self.book_discussed.author}"
+        return f"{self.book.title} by {self.book.author}"

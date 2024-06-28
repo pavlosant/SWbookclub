@@ -61,7 +61,7 @@ function BookAPI  ({books}) {
        
          axios({
            method: "POST",
-           url:"http://localhost:8000/api/books/",
+           url:"http://localhost:8000/books/",
            redirect:"follow",
            params:{
             id:book.id
@@ -78,7 +78,7 @@ function BookAPI  ({books}) {
            }
            })
           
-          const all_books = axios.get("http://localhost:8000/api/books/")
+          const all_books = axios.get("http://localhost:8000/books/")
           window.location.href="./books"
         }
     
