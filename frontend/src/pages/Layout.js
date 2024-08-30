@@ -16,8 +16,8 @@ const Layout = () => {
           <Nav className="me-auto">
           <Nav.Link href="/books">Books</Nav.Link>
         <Nav.Link href="/meetings">Meetings</Nav.Link>
-        <Nav.Link href="/contact">Contact</Nav.Link>
-        <Nav.Link href="/bookclub">BookClub</Nav.Link>
+      {/*   <Nav.Link href="/contact">Contact</Nav.Link>
+        <Nav.Link href="/bookclub">BookClub</Nav.Link> */}
           
           </Nav>
         </Navbar.Collapse>

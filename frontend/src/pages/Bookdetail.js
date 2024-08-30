@@ -13,7 +13,7 @@ const BookDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const params = useParams();
-  const bookId = params.id
+  const bookId = params.bookId
   
     
   const baseURL= "http://localhost:8000"

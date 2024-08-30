@@ -21,10 +21,10 @@ export default function App(){
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="books" element={<Books />} />
-        <Route path="/books/:id" element={<BookDetail />} />
+        <Route path="/books/:bookId" element={<BookDetail  /> }/>
         <Route path="meetings" element={<Meetings />} />
-        <Route path="bookclub" element={<BookClub />} />
-        <Route path="contact" element={<Contact />} />
+        {/* <Route path="bookclub" element={<BookClub />} /> */}
+       {/*  <Route path="contact" element={<Contact />} /> */}
         <Route path="/meetings/:meetingId" element={<MeetingDetail />}/>
         <Route path="/meetings/add" element={<AddMeeting />}/>
         <Route path="*" element={<NoPage />} />
