@@ -4,11 +4,16 @@ import Button from 'react-bootstrap/Button'
 import { useState, useEffect } from 'react';
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 function AddMeeting(){
+    const navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
     
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
+    const [chooserId, setChooserId] =useState('')
+    const [hostId, setHostId]=useState('')
+    const [bookId, setBookId]=useState('')
     const baseURL= "http://localhost:8000"
     useEffect(() => {
         const fetchData = async () =>{
@@ -22,7 +27,9 @@ function AddMeeting(){
           try {
             const {data:response} = await axios.get(baseURL+"/users/")
             setUsers(response);
+         
           }
+          
           catch (error) {
             console.error(error.message);
           }
@@ -58,24 +65,21 @@ function AddMeeting(){
          
         },
         data:{
-          meeting_date: "26-09-2024",
+          meeting_date: formData.meeting_date,
           location: formData.location,
-          host_name:formData.host,
-          book_discussed:formData.book.title,
-          chooser: formData.chooser,
+          host:hostId,
+          book:bookId,
+          chooser: chooserId,
          },  headers: {
           "Authorization": "AUTHORIZATION_KEY",
           "Content-type": "application/json"
         }
         })
-    // Here, we'll add the code to post the form data using Axios
+    
+        navigate("/meetings")
   };
-    //    meeting_date
-   // location 
-   // host = models.ForeignKey(User, on_delete=models.CASCADE)
-   // book_chooser = models.ForeignKey(
-// all_books
-    // host_name
+   
+         
     
     return (
         <>
@@ -87,7 +91,7 @@ function AddMeeting(){
 
       <Form.Group className="mb-3" controlId="formBasicDate">
         <Form.Label>Date of Meeting</Form.Label>
-        <Form.Control name="meeting_date" value={formData.meeting_date}  format="DD-MM-YYYY"   onChange={handleChange} type="date" placeholder="Date of meeting" />
+        <Form.Control name="meeting_date" value={formData.meeting_date}  onChange={handleChange} type="date" placeholder="Date of meeting" />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicLocation">
@@ -97,30 +101,30 @@ function AddMeeting(){
 
       <Form.Group className="mb-3" controlId="formBook">
         <Form.Label>Book to discuss: </Form.Label>
-        <Form.Select value={formData.book.key} name="book" aria-label="Default select example" onChange={handleChange}>
+        <Form.Select value={bookId} name="book" aria-label="Default select example" onChange={(e) => setBookId(e.target.value)}>
         <option>Not yet decided</option>
         { books.map( (book) => (  
-      <option key={book.id} >{book.title} by {book.author}</option>
+      <option key={book.id} value={book.id} >{book.title} by {book.author}</option>
         ))}
     </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formHost">
         <Form.Label>Host: </Form.Label>
-        <Form.Select value={formData.user} name="host" aria-label="Default select example" onChange={handleChange}>
+        <Form.Select value={hostId} name="host" aria-label="Default select example" onChange={(e) => setHostId(e.target.value)}>
         <option>Not yet decided</option>
         { users.map( (user) => (  
-      <option key={user.id} >{user.username}</option>
+      <option key={user.id} value={user.id}>{user.username}</option>
         ))}
     </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBookChooser">
         <Form.Label>Book Chooser: </Form.Label>
-        <Form.Select value={formData.user} name="chooser" aria-label="Default select example" onChange={handleChange}  >
+        <Form.Select value={chooserId} name="chooser" aria-label="Default select example" onChange={(e) => setChooserId(e.target.value)}  >
         <option>Not yet decided</option>
         { users.map( (user) => (  
-      <option key={user.id} >{user.username}</option>
+      <option key={user.id} value={user.id} >{user.username}</option>
         ))}
     </Form.Select>
       </Form.Group>

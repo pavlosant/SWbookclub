@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core import serializers
+import django.utils.timezone
 
 # Create your models here.
+import datetime
 
 
 class BookClub(models.Model):
@@ -48,7 +50,7 @@ class Book(models.Model):
 
 
 class Meeting(models.Model):
-    meeting_date = models.DateField()
+    meeting_date = models.DateField(default=django.utils.timezone.now)
     location = models.TextField()
     host = models.ForeignKey(User, related_name="host", on_delete=models.CASCADE)
     chooser = models.ForeignKey(
@@ -78,5 +80,9 @@ class Meeting(models.Model):
         return self.host.username
 
     @property
+    def chooser_name(self):
+        return self.chooser.username
+
+    @property
     def book_name(self):
-        return f"{self.book_discussed.title} by {self.book_discussed.author}"
+        return f"{self.book.title} by {self.book.author}"

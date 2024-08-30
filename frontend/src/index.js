@@ -13,7 +13,7 @@ import NoPage from "./pages/NoPage";
 import BookClub from "./pages/BookClub";
 import MeetingDetail from './pages/MeetingDetail';
 import AddMeeting from './pages/AddMeeting';
-
+import BookDetail from './pages/Bookdetail';
 export default function App(){
   return (
     <BrowserRouter>
@@ -21,6 +21,7 @@ export default function App(){
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="books" element={<Books />} />
+        <Route path="/books/:id" element={<BookDetail />} />
         <Route path="meetings" element={<Meetings />} />
         <Route path="bookclub" element={<BookClub />} />
         <Route path="contact" element={<Contact />} />
