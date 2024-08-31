@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const api = axios.create({
-    baseURL: "https://localhost:8080"
+    baseURL: "https://localhost:8000"
   });
 
 

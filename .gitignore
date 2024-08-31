@@ -6,3 +6,5 @@ frontend/node_modules
 bookclub/.DS_Store
 .env
 *.env
+data/*
+postgres_data/*

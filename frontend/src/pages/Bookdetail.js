@@ -51,7 +51,7 @@ const BookDetail = () => {
    
   
     <Container>
-
+    <h1>Book Details</h1>
     <Col key={book.id}>
 <Card  border="light" style={{width:'18rem'}} key={book.id}>
      <Card.Img variant="top" src= {book.cover} optional="true" style={styles.cardImage} />

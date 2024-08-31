@@ -70,7 +70,7 @@ const Books = () => {
 )}
 
 const Cardcomp = ({book}) => {
-  let meeting="sdad"
+  
     const styles = {
         card: {
           backgroundColor: '#B7E0F2',
@@ -92,7 +92,9 @@ const Cardcomp = ({book}) => {
   
         <Col key={book.id}>
 <Card  border="light" style={{width:'18rem'}} key={book.id}>
+<Link to={`/books/${book.id}`}>
      <Card.Img variant="top" src= {book.cover} optional="true" style={styles.cardImage} />
+     </Link> 
      <Card.Body>
        <Card.Title>{book.title}</Card.Title>
        <Card.Subtitle>{book.author}</Card.Subtitle>
