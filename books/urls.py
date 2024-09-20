@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-
+from . import views
 
 from .apiviews import (
     BookList,
@@ -13,6 +13,7 @@ from .apiviews import (
 )
 
 urlpatterns = [
+    path("", views.get_routes),
     path("meetings/", MeetingList.as_view(), name="meetings_list"),
     path("meetings/<int:pk>/", MeetingDetail.as_view(), name="meetings_detail"),
     path("meetings/<int:pk>/book/", MeetingBookList.as_view(), name="meetings_book"),

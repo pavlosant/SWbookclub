@@ -29,8 +29,27 @@ import requests
 from datetime import datetime
 from .forms import MeetingForm, BookForm, BookSearchForm
 import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Create your views here.
+from django.http import JsonResponse
+
+
+@api_view(["GET"])
+def get_routes(request):
+    """returns a view containing all the possible routes"""
+    routes = ["/api/token", "/api/token/refresh"]
+
+    return Response(routes)
+
+
+from .serializers import MyTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 def bookclub_list(request):

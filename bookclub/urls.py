@@ -23,10 +23,16 @@ from books import views
 from books import urls as book_urls
 from rest_framework import routers
 
+from books.views import MyTokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
+
 router = routers.DefaultRouter()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("books.urls")),
     path("api/auth/", include("authentication.urls")),
+    path("api/", include("books.urls")),
+    path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

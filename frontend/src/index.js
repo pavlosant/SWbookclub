@@ -10,24 +10,29 @@ import Books from "./pages/Books";
 import Meetings from "./pages/Meetings";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
-import BookClub from "./pages/BookClub";
+import LoginPage from "./pages/LoginPage";
 import MeetingDetail from './pages/MeetingDetail';
 import AddMeeting from './pages/AddMeeting';
 import BookDetail from './pages/Bookdetail';
+import PrivateRoute from './utils/PrivateRoute'
+
+
 export default function App(){
   return (
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="books" element={<Books />} />
-        <Route path="/books/:bookId" element={<BookDetail  /> }/>
+        <Route path="books" element={<PrivateRoute><Books /></PrivateRoute>} />
+        <Route path="/books/:bookId" element={<PrivateRoute><BookDetail  /></PrivateRoute> }/>
         <Route path="meetings" element={<Meetings />} />
         {/* <Route path="bookclub" element={<BookClub />} /> */}
        {/*  <Route path="contact" element={<Contact />} /> */}
         <Route path="/meetings/:meetingId" element={<MeetingDetail />}/>
         <Route path="/meetings/add" element={<AddMeeting />}/>
         <Route path="*" element={<NoPage />} />
+        <Route path="/login" element={<LoginPage/>}/>
+
         </Route> 
     </Routes>
     </BrowserRouter>
