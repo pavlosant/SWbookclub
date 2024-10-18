@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import include, path
-
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 from .apiviews import (
     BookList,
@@ -20,6 +23,9 @@ urlpatterns = [
     path("books/<int:pk>/", BookDetail.as_view(), name="books_detail"),
     path("users/", UserList.as_view(), name="users_list"),
     path("users/<int:pk>/", UserDetail.as_view(), name="users_detail"),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
+]
     # path("books/", books_list, name="books_list"),
     # path("books/<int:pk>/", books_detail, name="books_detail"),
     # path("bookclubs/", bookclub_list, name="bookclub_list"),
