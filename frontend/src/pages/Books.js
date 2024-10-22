@@ -9,12 +9,15 @@ import Row from 'react-bootstrap/Row';
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from "react-router-dom";
 import styles from "../App.css";
+
 const api = axios.create({
     baseURL: "http://localhost:8080"
   });
 
 
 const Books = () => {
+  const token = localStorage.getItem('access_token');
+
     const [showForm, setshowForm] = useState(false);
     const [books, setBooks] = useState([])
     const baseURL= "http://localhost:8000"
@@ -23,7 +26,11 @@ const Books = () => {
         const fetchData = async () =>{
           
           try {
-            const {data: response} = await axios.get(baseURL+"/books/");
+            const {data: response} = await axios.get(baseURL+"/books/",{
+              headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            });
             setBooks(response);
           } catch (error) {
             console.error(error.message);

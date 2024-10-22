@@ -14,6 +14,7 @@ import BookClub from "./pages/BookClub";
 import MeetingDetail from './pages/MeetingDetail';
 import AddMeeting from './pages/AddMeeting';
 import BookDetail from './pages/Bookdetail';
+import Login from "./pages/Login";
 export default function App(){
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ export default function App(){
        {/*  <Route path="contact" element={<Contact />} /> */}
         <Route path="/meetings/:meetingId" element={<MeetingDetail />}/>
         <Route path="/meetings/add" element={<AddMeeting />}/>
+        <Route path="/login" element={<Login />}/>
         <Route path="*" element={<NoPage />} />
         </Route> 
     </Routes>
