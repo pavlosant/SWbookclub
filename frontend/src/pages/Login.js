@@ -1,41 +1,65 @@
-import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // For making requests to Django back end
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button'
 
-const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate(); // useNavigate hook to redirect users
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
     
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        
-        try {
-            const response = await axios.post('http://localhost:8000/api/token/', {
-                username,
-                password
-            });
-            
-            const { access, refresh } = response.data;
+    try {
+      const response = await axios.post("http://localhost:8000/api/token/", {
+        username,
+        password,
+      });
 
-            // Store tokens in localStorage
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-            
-            // Now you can use the access token in future API requests
-        } catch (error) {
-            console.error('Login error:', error);
-        }
-    };
+      // If login is successful, store the token
+      const { access, refresh } = response.data;
+      localStorage.setItem("access_token", access);
+      localStorage.setItem("refresh_token", refresh);
 
-    return (
-        <Container> 
-        <form onSubmit={handleLogin}>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button type="submit">Login</button>
-        </form>
-        </Container>
-    );
-};
+      // Redirect to Home.js after successful login
+      navigate("/home");
+    } catch (err) {
+      setError("Login failed. Check your credentials and try again.");
+    }
+  };
+
+  return (
+    <Container> 
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        <br />
+        <Button type="submit">Login </Button>
+      </form>
+      {error && <p>{error}</p>}
+    </div>
+    </Container>
+  );
+}
 
 export default Login;

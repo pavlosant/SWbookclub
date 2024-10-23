@@ -14,13 +14,24 @@ import BookClub from "./pages/BookClub";
 import MeetingDetail from './pages/MeetingDetail';
 import AddMeeting from './pages/AddMeeting';
 import BookDetail from './pages/Bookdetail';
-import Login from "./pages/Login";
+import Login from './pages/Login';
+import PrivateRoute from "./pages/PrivateRoute";
+import HomeOpen from './pages/HomeOpen';
 export default function App(){
   return (
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route index element={<HomeOpen />} />
+        <Route path="home_not_logged_in" element={<HomeOpen />} />
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
         <Route path="books" element={<Books />} />
         <Route path="/books/:bookId" element={<BookDetail  /> }/>
         <Route path="meetings" element={<Meetings />} />
