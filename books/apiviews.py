@@ -25,21 +25,26 @@ class BookList(generics.ListCreateAPIView):
 #        data = BookSerializer(books, many=True).data
 #        return Response(data)
 class BookDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
 class MeetingList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
 
 
 class MeetingDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
 
 
 class MeetingBookList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         queryset = Book.objects.filter(bookmeeting=self.kwargs["pk"])
         return queryset
@@ -48,10 +53,12 @@ class MeetingBookList(generics.ListCreateAPIView):
 
 
 class UserList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer

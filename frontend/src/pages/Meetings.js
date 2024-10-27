@@ -63,10 +63,15 @@ function handleClick(){
     }
 
 function getMeetings(){
+    const token = localStorage.getItem('access_token');
+
     const today = new Date().toISOString().split('T')[0];
     axios({
         method:"GET",
-        url:"http://localhost:8000/meetings/"
+        url:"http://localhost:8000/meetings/", 
+            headers: {
+              'Authorization': `Bearer ${token}`,
+          },
     }).then((response) =>{
        
         const meetings =response.data

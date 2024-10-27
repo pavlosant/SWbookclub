@@ -17,12 +17,14 @@ import BookDetail from './pages/Bookdetail';
 import Login from './pages/Login';
 import PrivateRoute from "./pages/PrivateRoute";
 import HomeOpen from './pages/HomeOpen';
+import Register from './pages/Register';
 export default function App(){
   return (
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomeOpen />} />
+       
         <Route path="home_not_logged_in" element={<HomeOpen />} />
         <Route
           path="/home"
@@ -40,6 +42,7 @@ export default function App(){
         <Route path="/meetings/:meetingId" element={<MeetingDetail />}/>
         <Route path="/meetings/add" element={<AddMeeting />}/>
         <Route path="/login" element={<Login />}/>
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<NoPage />} />
         </Route> 
     </Routes>

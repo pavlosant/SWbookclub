@@ -31,6 +31,7 @@ const Layout = () => {
                               <>
                               <Navbar.Brand href="/home_not_logged_in">Saffron Walden Book Club</Navbar.Brand>
                                 <Nav.Link href="/login">Login</Nav.Link>
+                                <Nav.Link href="/register">Register</Nav.Link>
                            </>
                             ) : (
                               <>

@@ -6,6 +6,7 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 function AddMeeting(){
+    const token = localStorage.getItem('access_token');
     const navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
     
@@ -19,13 +20,21 @@ function AddMeeting(){
         const fetchData = async () =>{
           
           try {
-            const {data: response} = await axios.get(baseURL+"/books/");
+            const {data: response} = await axios.get(baseURL+"/books/",{
+              headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            });
             setBooks(response);
           } catch (error) {
             console.error(error.message);
           }
           try {
-            const {data:response} = await axios.get(baseURL+"/users/")
+            const {data:response} = await axios.get(baseURL+"/users/",{
+              headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            })
             setUsers(response);
          
           }
@@ -71,7 +80,7 @@ function AddMeeting(){
           book:bookId,
           chooser: chooserId,
          },  headers: {
-          "Authorization": "AUTHORIZATION_KEY",
+          'Authorization': `Bearer ${token}`,
           "Content-type": "application/json"
         }
         })
@@ -83,7 +92,7 @@ function AddMeeting(){
     
     return (
         <>
-        <Container>
+        <Container className="small-form-container"> 
         <h1>Create New Meeting</h1>
         
         <Form>

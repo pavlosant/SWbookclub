@@ -88,8 +88,14 @@ WSGI_APPLICATION = "bookclub.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",  # This is where you put the name of the db file.
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "bookdb",
+        "USER": "admin",
+        "PASSWORD": "admin",
+        "HOST": "127.0.0.1",  # Name of the PostgreSQL service in Docker
+        "PORT": "5432",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": "mydatabase",  # This is where you put the name of the db file.
         # If one doesn't exist, it will be created at migration time.
     }
 }
@@ -155,6 +161,9 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated"),
 }
+# For open access to the register endpoint
+from rest_framework.permissions import AllowAny
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
