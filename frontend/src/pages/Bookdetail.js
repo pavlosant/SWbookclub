@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { Container } from 'react-bootstrap';
 
 const BookDetail = () => {
+  const token = localStorage.getItem('access_token');
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +21,11 @@ const BookDetail = () => {
  
      useEffect(() => {
    
-    axios.get(`http://localhost:8000/books/${bookId}/`)
+    axios.get(`http://localhost:8000/books/${bookId}/`,{
+      headers: {
+        'Authorization': `Bearer ${token}`,
+    },
+    })
       .then(response => {
         setBook(response.data);
         setLoading(false);

@@ -56,6 +56,8 @@ function Search(){
 }
   
 function BookAPI  ({books}) {
+  const token = localStorage.getItem('access_token');
+
     if (!books) {return null;}
     const onClick = (book) => {
        
@@ -73,7 +75,7 @@ function BookAPI  ({books}) {
              cover:book.volumeInfo.imageLinks.thumbnail,
              bookclub: "Saffron Walden Book Club",
             },  headers: {
-             "Authorization": "AUTHORIZATION_KEY",
+              'Authorization': `Bearer ${token}`,
              "Content-type": "application/json"
            }
            })
