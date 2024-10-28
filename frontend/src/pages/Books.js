@@ -86,14 +86,14 @@ const CardComp = ({ book }) => {
                 </Link>
                 <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
-                    <Card.Subtitle>{book.author}</Card.Subtitle>
+                    <Card.Subtitle className="card-text">{book.author}</Card.Subtitle>
                     <Accordion>
-                        <Accordion.Header>Read Description</Accordion.Header>
+                        <Accordion.Header >Read Description</Accordion.Header>
                         <Accordion.Body>
-                            <Card.Text>{book.description}</Card.Text>
+                            <Card.Text >{book.description}</Card.Text>
                         </Accordion.Body>
                     </Accordion>
-                    <Card.Subtitle className="mt-2">{book.book_discussed}</Card.Subtitle>
+                    
                 </Card.Body>
             </Card>
         </Col>

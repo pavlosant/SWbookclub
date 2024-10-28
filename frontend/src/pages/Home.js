@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 // Use named import for jwtDecode
 import { jwtDecode } from 'jwt-decode'; 
+import bookClubImage from "../assets/book_club_henry.jpeg";
 
 const Home = () => {
     const [username, setUsername] = useState('');
@@ -34,6 +35,8 @@ const Home = () => {
         <p>
             For the books in the reading list see: <Link to="/books">Books</Link>
         </p>
+        <img src={bookClubImage} alt="Book Club" style={{ width: '80%', height: 'auto' }} />
+
         </Container>
     </>
     );

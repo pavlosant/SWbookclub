@@ -30,3 +30,17 @@ code {
   padding: 20px; /* Optional padding */
   box-sizing: border-box; /* Ensures padding doesn’t affect width */
 }
+
+.card-text {
+  font-family: 'Montserrat';
+  color:royalblue;
+  font-size: 30px;
+  line-height: 1.1em;
+  font-weight: 600;
+}
+card-text-title {
+  font-family: 'Untitled Serif';
+  font-size: 100px;
+  line-height: 98px;
+  font-weight: 400;
+}
