@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-e#ay!$787c@rm+pc@)h63n1v=3e&0fb__6i9+x)o0okcr@zv_i"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your_default_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -89,11 +89,14 @@ WSGI_APPLICATION = "bookclub.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bookdb",
-        "USER": "admin",
-        "PASSWORD": "admin",
-        "HOST": "127.0.0.1",  # Name of the PostgreSQL service in Docker
-        "PORT": "5432",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        # "HOST": os.getenv("POSTGRES_HOST", "127.0.0.1"),
+        "HOST": os.getenv(
+            "POSTGRES_HOST", "db"
+        ),  # Name of the PostgreSQL service in Docker
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": "mydatabase",  # This is where you put the name of the db file.
         # If one doesn't exist, it will be created at migration time.
@@ -135,10 +138,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# URL to access static files
+STATIC_URL = "/static/"
+
+# Directory where collectstatic will place all static files for production
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# Additional locations where Django will look for static files in development
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 # Default primary key field type
