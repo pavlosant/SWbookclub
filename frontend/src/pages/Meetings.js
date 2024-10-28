@@ -90,7 +90,9 @@ function getMeetings(){
     
     axios({
         method:"GET",
-        url:"http://localhost:8000/books/"
+        url:"http://localhost:8000/books/", headers: {
+            'Authorization': `Bearer ${token}`,
+        },
     }).then((response) =>{
        
         const books =response.data
