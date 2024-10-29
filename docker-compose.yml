@@ -29,7 +29,7 @@ services:
     build:
       context: ./frontend
     working_dir: /app
-    command: ["npm", "start"]
+    command: ["npx", "serve", "-s", "build", "-l", "3000"]
     ports:
       - "3000:3000"
     volumes:
