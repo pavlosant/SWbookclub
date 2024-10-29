@@ -1,7 +1,7 @@
 # frontend/Dockerfile
 
 # Base image for Node
-FROM node:14
+FROM node:16-alpine
 
 # Set working directory
 WORKDIR /app
@@ -9,7 +9,9 @@ WORKDIR /app
 # Install dependencies
 COPY package.json /app/
 COPY package-lock.json /app/
-RUN npm install
+RUN npm ci
+
+RUN npm cache clean --force && npm install --no-audit --no-fund --maxsockets=5
 
 # Copy the React app files and build
 COPY . /app/
