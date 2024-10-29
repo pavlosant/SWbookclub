@@ -1,22 +1,25 @@
 # frontend/Dockerfile
 
-# Base image for Node
+# Base image for Node (using a lightweight Alpine image)
 FROM node:16-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
-COPY package.json /app/
-COPY package-lock.json /app/
-RUN npm ci
+# Copy package.json and package-lock.json and install dependencies
+COPY package.json package-lock.json ./
 
-RUN npm cache clean --force && npm install --no-audit --no-fund --maxsockets=5
+# Use npm ci for a clean and efficient installation
+RUN npm ci --no-audit --no-fund && npm cache clean --force
 
-# Copy the React app files and build
-COPY . /app/
+# Copy the remaining app files after dependencies are installed
+COPY . .
+
+# Build the React app
 RUN npm run build
 
-# Expose port and start the app
+# Expose port 3000 for the React app
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Serve the built app using a production server like serve
+CMD ["npx", "serve", "-s", "build", "-l", "3000"]
