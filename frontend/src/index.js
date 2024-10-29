@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+//import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
+
+
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
@@ -20,33 +23,31 @@ import HomeOpen from './pages/HomeOpen';
 import Register from './pages/Register';
 export default function App(){
   return (
-    <BrowserRouter>
+    <HashRouter>
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomeOpen />} />
-       
-        <Route path="home_not_logged_in" element={<HomeOpen />} />
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route path="books" element={<Books />} />
-        <Route path="/books/:bookId" element={<BookDetail  /> }/>
-        <Route path="meetings" element={<Meetings />} />
-        {/* <Route path="bookclub" element={<BookClub />} /> */}
-       {/*  <Route path="contact" element={<Contact />} /> */}
-        <Route path="/meetings/:meetingId" element={<MeetingDetail />}/>
-        <Route path="/meetings/add" element={<AddMeeting />}/>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/register" element={<Register />} />
-        <Route path="*" element={<NoPage />} />
-        </Route> 
+    <Route path="/" element={<Layout />}>
+  <Route index element={<HomeOpen />} />
+  <Route path="home_not_logged_in" element={<HomeOpen />} />
+  <Route
+    path="home"
+    element={
+      <PrivateRoute>
+        <Home />
+      </PrivateRoute>
+    }
+  />
+  <Route path="books" element={<Books />} />
+  <Route path="books/:bookId" element={<BookDetail />} />
+  <Route path="meetings" element={<Meetings />} />
+  <Route path="meetings/:meetingId" element={<MeetingDetail />} />
+  <Route path="meetings/add" element={<AddMeeting />} />
+  <Route path="login" element={<Login />} />
+  <Route path="register" element={<Register />} />
+  <Route path="*" element={<NoPage />} />
+</Route>
+
     </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
