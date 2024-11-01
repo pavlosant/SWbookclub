@@ -29,9 +29,8 @@ services:
     build:
       context: ./frontend
     working_dir: /app
-    # Added a step to install 'serve' globally as part of the build process
     command: >
-      sh -c "npm install -g serve@14.2.4 && npx serve -s build -l 3000"
+      sh -c "npm install -g serve@14.2.4 && serve -s build -l 3000"
     ports:
       - "3000:3000"
     volumes:
