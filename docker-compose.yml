@@ -30,7 +30,7 @@ services:
       context: ./frontend
     working_dir: /app
     command: >
-      sh -c "npm install -g serve@14.2.4 && serve -s build -l 3000"
+      sh -c "npm install -g serve@14.2.4 && serve -s build -l 3000 --single"
     ports:
       - "3000:3000"
     volumes:

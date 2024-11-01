@@ -27,5 +27,5 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("books.urls")),
+    path("api/", include("books.urls")),
 ]
