@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-//import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+// import { HashRouter, Routes, Route } from "react-router-dom";
 
 
 import Layout from "./pages/Layout";
@@ -23,7 +23,7 @@ import HomeOpen from './pages/HomeOpen';
 import Register from './pages/Register';
 export default function App(){
   return (
-    <HashRouter>
+    <BrowserRouter basename='/bookclub/'>
     <Routes>
     <Route path="/" element={<Layout />}>
   <Route index element={<HomeOpen />} />
@@ -47,7 +47,7 @@ export default function App(){
 </Route>
 
     </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
